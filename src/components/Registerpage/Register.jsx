@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate from react-router-dom
 import axios from "axios";
+import "./reg.css";
 
 const Register = () => {
-  const [user, setUser] = useState({ username: "", email: "", password: "" }); // ✅ Using `username`
+  const [user, setUser] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false); // ✅ Add state to track registration success
+  const navigate = useNavigate(); // ✅ Initialize useNavigate
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -21,7 +24,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/register",
+        "https://backend-myquiz-1.onrender.com/register", // Use your backend URL here
         user,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -29,14 +32,20 @@ const Register = () => {
       console.log("📩 Registration response:", response.data);
 
       if (response.data.message === "User registered successfully!") {
-        return <Navigate to="/login" />;
+        setIsRegistered(true); // ✅ Set isRegistered to true on successful registration
       }
-      
     } catch (err) {
       console.error("❌ Registration error:", err.response?.data);
       setError(err.response?.data?.error || "Registration failed!");
     }
   };
+
+  // ✅ useEffect hook to navigate after state change
+  useEffect(() => {
+    if (isRegistered) {
+      navigate("/login"); // Navigate to login page after successful registration
+    }
+  }, [isRegistered, navigate]);
 
   return (
     <div className="auth-container">
@@ -45,7 +54,7 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="username" // ✅ Using `username`
+          name="username"
           placeholder="Username"
           value={user.username}
           onChange={handleChange}

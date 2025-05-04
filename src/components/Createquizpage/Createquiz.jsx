@@ -3,6 +3,9 @@ import QuizForm from "./Quizform";
 import "../styles/style.css";
 import axios from "axios";
 
+
+
+
 const CreateQuiz = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [quizLinks, setQuizLinks] = useState({}); // Store generated links
@@ -22,7 +25,7 @@ useEffect(() => {
   }
   
   // Fetch quizzes with authentication
-  axios.get("http://localhost:5000/api/quizzes", {
+  axios.get(`https://backend-myquiz-1.onrender.com/api/quizzes`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -36,69 +39,39 @@ useEffect(() => {
       setIsLoading(false);
     });
 }, []);
-  const handleQuizSubmit = async (quizData) => {
-    try {
-      setIsLoading(true);
-      const token = localStorage.getItem("token"); // Get authentication token
-      
-      if (!token) {
-        alert("You must be logged in to create a quiz.");
-        setIsLoading(false);
-        return;
-      }
-      
-      // Log the data being sent for debugging
-      console.log("Submitting quiz data:", quizData);
-      
-      // Create a proper quiz object that matches the schema
-      const quizToSubmit = {
-        title: quizData.title,
-        description: quizData.description,
-        image: quizData.image,
-        audio: quizData.audio,
-        questions: quizData.questions.map(q => ({
-          question: q.text, 
-          options: q.options,
-          correctAnswer: q.correctAnswer
-        }))
-      };
-      
-      // Check server connectivity first
-      try {
-        await axios.get("http://localhost:5000/api/health");
-        console.log("Server is reachable");
-      } catch (connError) {
-        console.error("Server connectivity issue:", connError);
-        alert("Cannot connect to the server. Please check if the server is running.");
-        setIsLoading(false);
-        return;
-      }
-      
-      // Send request with authentication token
-      const response = await axios.post(
-        "http://localhost:5000/api/quizzes", 
-        quizToSubmit,
-        {
-          timeout: 10000,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Add token to request
-          }
-        }
-      );
-      
-      console.log("Server response:", response.data);
-      
-      const savedQuiz = response.data;
-      setQuizzes(prevQuizzes => [...prevQuizzes, savedQuiz]);
-      generateQuizLink(savedQuiz._id);
+  
+const handleQuizSubmit = async (quizData) => {
+  try {
+    setIsLoading(true);
+    const token = localStorage.getItem("token");
+    
+    if (!token) {
+      alert("You must be logged in to create a quiz.");
+      console.error("No token found in localStorage!");
       setIsLoading(false);
-      // alert("Quiz created successfully!");
-    } catch (error) {
-      // Error handling code remains the same
-      // ...
+      return;
     }
-  };
+
+    console.log("Using Token:", token);  // Debugging line
+
+    const response = await axios.post(`https://backend-myquiz-1.onrender.com/api/quizzes`, quizData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    console.log("Quiz created successfully:", response.data);
+    setQuizzes(prevQuizzes => [...prevQuizzes, response.data]);
+
+    setIsLoading(false);
+  } catch (error) {
+    console.error("Error submitting quiz:", error.response ? error.response.data : error.message);
+    alert("Quiz submission failed! Check console for details.");
+    setIsLoading(false);
+  }
+};
+
   const generateQuizLink = (quizId) => {
     const link = `${window.location.origin}/quiz/${quizId}`;
     setQuizLinks(prev => ({ ...prev, [quizId]: link }));
@@ -108,7 +81,7 @@ useEffect(() => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
       try {
         setIsLoading(true);
-        await axios.delete(`http://localhost:5000/api/quizzes/${quizId}`);
+        await axios.delete(`https://backend-myquiz-1.onrender.com/api/quizzes/${quizId}`);
         
         // Remove from state
         setQuizzes(quizzes.filter(quiz => quiz._id !== quizId));
@@ -146,14 +119,16 @@ useEffect(() => {
                   <p>Questions: {quiz?.questions?.length || 0}</p>
                   
                   {quiz.image && (
-                    <div className="quiz-thumbnail">
-                      <img 
-                        src={quiz.image} 
-                        alt="Quiz thumbnail" 
-                        className="thumbnail" 
-                      />
-                    </div>
-                  )}
+  <div className="quiz-thumbnail" style={{ width: "140px", height: "90px" }}>
+    <img 
+      src={quiz.image} 
+      alt="Quiz thumbnail" 
+      className="thumbnail" 
+      style={{ width: "100%", height: "100%" }} 
+    />
+  </div>
+)}
+
                   
                   {quiz.audio && (
                     <div className="audio-preview">

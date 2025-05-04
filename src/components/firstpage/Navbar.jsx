@@ -15,7 +15,7 @@ const Navbar = ({ isLoggedIn }) => {
 
   return (
     <nav className="navbar">
-      <h1 className="logo">MediQuiz</h1>
+      <h1 className="logo">Quiz generator</h1>
       <ul className="nav-links">
         {isLoggedIn ? (
           <>
@@ -26,7 +26,6 @@ const Navbar = ({ isLoggedIn }) => {
           </>
         ) : (
           <>
-            <li><Link to="/home" className="nav-item">Home</Link></li>
             <li><Link to="/about" className="nav-item">About</Link></li>
             <li><Link to="/login" className="nav-item">Login</Link></li>
           </>

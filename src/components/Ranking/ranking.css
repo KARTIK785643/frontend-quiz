@@ -1,67 +1,174 @@
-/* General container */
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-
+/* Main container */
 .ranking-container {
-    width: 70%;
-    margin: 50px auto;
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  font-family: 'Poppins', sans-serif;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative elements */
+.ranking-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 1;
+}
+
+/* Header */
+.ranking-container h2 {
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.ranking-container h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+  border-radius: 3px;
+}
+
+/* Loading and error messages */
+.ranking-container p {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  padding: 20px;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 8px;
+  padding: 12px !important;
+  margin: 20px 0;
+}
+
+/* Table styling */
+.ranking-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  margin-top: 10px;
+}
+
+.ranking-table thead th {
+  padding: 15px;
+  text-align: left;
+  color: #555;
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ranking-table tbody tr {
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ranking-table tbody tr:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.ranking-table tbody td {
+  padding: 15px;
+  font-size: 15px;
+  color: #444;
+}
+
+/* Highlight top ranks */
+.ranking-table .top-1 {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+  font-weight: 600;
+}
+
+.ranking-table .top-1 td:first-child {
+  position: relative;
+  color: #ff9d00;
+}
+
+.ranking-table .top-1 td:first-child::before {
+  content: "👑";
+  margin-right: 5px;
+}
+
+.ranking-table .top-2 {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+  font-weight: 500;
+}
+
+.ranking-table .top-2 td:first-child {
+  color: #757575;
+}
+
+.ranking-table .top-3 {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+  font-weight: 500;
+}
+
+.ranking-table .top-3 td:first-child {
+  color: #cd7f32;
+}
+
+/* First column (rank) styling */
+.ranking-table td:first-child {
+  font-weight: 600;
+  text-align: center;
+  width: 70px;
+  font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .ranking-container {
+    padding: 20px 15px;
+    margin: 20px 10px;
   }
   
-  /* Table styling */
-  .ranking-table {
-    width: 100%;
-    border-collapse: collapse; /* ✅ Fix spacing issues */
-    border-radius: 8px;
-    overflow: hidden;
+  .ranking-table thead th {
+    padding: 10px;
+    font-size: 14px;
   }
   
-  /* Table header */
-  .ranking-table thead {
-    background: #4CAF50;
-    color: white;
-    width: 100%;  /* ✅ Ensure it takes full width */
+  .ranking-table tbody td {
+    padding: 12px 10px;
+    font-size: 14px;
   }
   
-  /* Header and row cell styling */
-  .ranking-table th, .ranking-table td {
-    padding: 12px 15px;
-    text-align: center;
-    border: 1px solid #ddd;
+  .ranking-container h2 {
+    font-size: 22px;
   }
-  
-  /* Highlight top ranks */
-  .top-1 {
-    background: rgb(224, 219, 192) !important;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .top-2 {
-    background: silver !important;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .top-3 {
-    background: #cd7f32 !important; /* Bronze */
-    font-weight: bold;
-    color: white;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .ranking-container {
-        width: 90%;
-        padding: 15px;
-    }
-  
-    .ranking-table th, .ranking-table td {
-        padding: 10px;
-        font-size: 14px;
-    }
-  }
-  
+}
+
+/* Animation for real-time updates */
+@keyframes highlight {
+  0% { background-color: rgba(58, 123, 213, 0.2); }
+  100% { background-color: transparent; }
+}
+
+.ranking-table tr.updated {
+  animation: highlight 2s ease;
+}

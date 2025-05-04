@@ -5,31 +5,32 @@
     box-sizing: border-box;
 }
 
+/* --- Main Container --- */
 .app-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+
     width: 100%;
-    height: 100vh;  /* Full viewport height */
-    background: url("../styles/white-background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
+    height: 80vh;  
+    padding: 20px; /* Added padding to avoid cut-off on small screens */
 }
 
-/* --- Card Container (Row Layout with Gap) --- */
+/* --- Card Container --- */
 .card-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 18rem; /* Space between cards */
+    gap: 14rem; /* Reduce gap for better spacing on small screens */
     max-width: 90%;
 }
 
+
 /* --- Individual Quiz Cards --- */
 .quiz-card {
-    background-color: rgb(151, 208, 202);
+    background-color: rgb(157, 237, 229);
     width: 280px;
     height: 240px;
     border-radius: 18px;
@@ -49,17 +50,17 @@
 /* --- Card Title & Text --- */
 .card-title {
     font-size: 22px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
     color: #000;
 }
 
 .card-description {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #000;
-    margin-top: 20px;
+    margin-top: 15px;
     font-style: italic;
 }
 
@@ -68,9 +69,9 @@
     background-color: #1e4b45;
     color: white;
     border: none;
-    padding: 15px 25px;
+    padding: 12px 20px;
     border-radius: 12px;
-    margin-top: 40px;
+    margin-top: 25px;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -84,10 +85,80 @@
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* --- Responsive Design (Stack Cards in Column on Smaller Screens) --- */
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .card-container {
+        gap: 3rem; /* Reduce gap for better spacing */
+    }
+
+    .quiz-card {
+        width: 250px; /* Slightly reduce card width */
+        height: 220px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .card-description {
+        font-size: 16px;
+    }
+
+    .card-button {
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 768px) {
     .card-container {
         flex-direction: column;
         align-items: center;
+        gap: 2rem; /* Further reduce gap for better layout */
+    }
+
+    .quiz-card {
+        width: 90%; /* Make the card fill most of the screen */
+        max-width: 320px;
+        height: auto;
+        padding: 15px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-description {
+        font-size: 15px;
+    }
+
+    .card-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        height: auto;
+        padding: 10px;
+    }
+
+    .quiz-card {
+        width: 95%; /* Utilize screen space better */
+        max-width: 300px;
+    }
+
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-description {
+        font-size: 14px;
+    }
+
+    .card-button {
+        padding: 6px 14px;
+        font-size: 12px;
     }
 }

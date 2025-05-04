@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./reg.css";
 
+
+
 const Login = ({ setIsLoggedIn }) => {  // Accept setIsLoggedIn prop
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -22,7 +24,8 @@ const Login = ({ setIsLoggedIn }) => {  // Accept setIsLoggedIn prop
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/login", user, {
+      const response = await axios.post("https://backend-myquiz-1.onrender.com/login", user, {
+
         headers: { "Content-Type": "application/json" },
       });
 

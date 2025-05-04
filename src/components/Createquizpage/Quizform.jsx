@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 
+
 const QuizForm = ({ onSubmit }) => {
   const [quiz, setQuiz] = useState({
     title: "",
     description: "",
+    image: "",
+    audio: "",
     questions: [],
   });
 
   const [question, setQuestion] = useState({
-    text: "",
+    question: "",
     options: ["", ""],
-    correctAnswer: 0,
-    image: null,
-    audio: null,
+    correctAnswer: "",
   });
 
   const handleQuizChange = (e) => {
@@ -29,16 +30,26 @@ const QuizForm = ({ onSubmit }) => {
     setQuestion({ ...question, options: newOptions });
   };
 
-  const handleCorrectAnswerChange = (index) => {
-    setQuestion({ ...question, correctAnswer: index });
+  const handleCorrectAnswerChange = (value) => {
+    setQuestion({ ...question, correctAnswer: value });
   };
 
   const handleImageUpload = (e) => {
-    setQuestion({ ...question, image: URL.createObjectURL(e.target.files[0]) });
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setQuiz({ ...quiz, image: reader.result });
+    };
+    if (file) reader.readAsDataURL(file);
   };
 
   const handleAudioUpload = (e) => {
-    setQuestion({ ...question, audio: URL.createObjectURL(e.target.files[0]) });
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setQuiz({ ...quiz, audio: reader.result });
+    };
+    if (file) reader.readAsDataURL(file);
   };
 
   const addOption = () => {
@@ -47,33 +58,31 @@ const QuizForm = ({ onSubmit }) => {
 
   const addQuestion = () => {
     setQuiz({ ...quiz, questions: [...quiz.questions, question] });
-    setQuestion({ text: "", options: ["", ""], correctAnswer: 0, image: null, audio: null });
+    setQuestion({ question: "", options: ["", ""], correctAnswer: "" });
   };
 
   const submitQuiz = () => {
     onSubmit(quiz);
-    setQuiz({ title: "", description: "", questions: [] });
+    setQuiz({ title: "", description: "", image: "", audio: "", questions: [] });
   };
 
   return (
     <>
-      {/* Main Quiz Form Container */}
       <div className="quiz-container">
         <h3>Quiz Details</h3>
         <input type="text" name="title" value={quiz.title} onChange={handleQuizChange} placeholder="Quiz Title" />
         <textarea name="description" value={quiz.description} onChange={handleQuizChange} placeholder="Quiz Description" />
 
-        <div className="new">
-        <h4>Upload Image (Optional)</h4>
+        <h4>Upload Image </h4>
         <input type="file" accept="image/*" onChange={handleImageUpload} />
-        {question.image && <img src={question.image} alt="Preview" width="100px" />}
+        {quiz.image && <img src={quiz.image} alt="Quiz" width="100px" />}
 
-        <h4>Upload Audio (Optional)</h4>
+        <h4>Upload Audio </h4>
         <input type="file" accept="audio/*" onChange={handleAudioUpload} />
-        {question.audio && <audio controls src={question.audio}></audio>}
+        {quiz.audio && <audio controls src={quiz.audio}></audio>}
 
         <h3>Add Question</h3>
-        <input type="text" name="text" value={question.text} onChange={handleQuestionChange} placeholder="Question" />
+        <input type="text" name="question" value={question.question} onChange={handleQuestionChange} placeholder="Question" />
 
         <h4>Options</h4>
         {question.options.map((option, index) => (
@@ -87,35 +96,32 @@ const QuizForm = ({ onSubmit }) => {
             <input
               type="radio"
               name="correctAnswer"
-              checked={question.correctAnswer === index}
-              onChange={() => handleCorrectAnswerChange(index)}
+              checked={question.correctAnswer === option}
+              onChange={() => handleCorrectAnswerChange(option)}
             />
           </div>
         ))}
-</div>
-        <div>
-          <button onClick={addOption}>Add Option</button>
-          <button onClick={addQuestion}>Add Question</button>
-          <button onClick={submitQuiz}>Submit Quiz</button>
-        </div>
+
+        <button onClick={addOption}>Add Option</button>
+        <button onClick={addQuestion}>Add Question</button>
+        <button onClick={submitQuiz}>Submit Quiz</button>
       </div>
 
-      {/* Created Quizzes - Rendered Outside the Container */}
       <div className="quiz-display">
         {quiz.questions.length > 0 && (
           <div>
             <h4>Quiz: {quiz.title}</h4>
             <p>{quiz.description}</p>
+            {quiz.image && <img src={quiz.image} alt="Quiz" width="100px" />}
+            {quiz.audio && <audio controls src={quiz.audio}></audio>}
             <ul>
               {quiz.questions.map((q, index) => (
                 <li key={index}>
-                  <strong>{q.text}</strong>
-                  {q.image && <div><img src={q.image} alt="Preview" width="100px" /></div>}
-                  {q.audio && <div><audio controls src={q.audio}></audio></div>}
+                  <strong>{q.question}</strong>
                   <ul>
                     {q.options.map((opt, i) => (
                       <li key={i}>
-                        {opt} {q.correctAnswer === i ? "✅" : ""}
+                        {opt} {q.correctAnswer === opt ? "✅" : ""}
                       </li>
                     ))}
                   </ul>

@@ -9,7 +9,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <header className="hero-section">
         <div className="hero-content">
-          <h1>Welcome to <span>MediQuiz</span></h1>
+          <h1>Welcome to <span>Quiz generator </span></h1>
           <p>Create engaging quizzes with images, videos, and audio. Test knowledge interactively!</p>
           <Link className="cta-button">Developed by Kartik</Link>
         </div>
@@ -18,7 +18,7 @@ const LandingPage = () => {
 
       {/* Features Section */}
       <section className="features-section">
-        <h2>Why Choose MediQuiz?</h2>
+        <h2>Why Choose Quiz generator?</h2>
         <div className="features">
           <div className="feature">
             <h3>🎥 Multimedia Support</h3>

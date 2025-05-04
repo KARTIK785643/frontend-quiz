@@ -4,7 +4,7 @@ import "./sty.css";
 function Footer() {
   return (
     <footer className="footer">
-    <p>© 2025 MediQuiz. All Rights Reserved.</p>
+    <p>© 2025 quizapp. All Rights Reserved.</p>
   </footer>
   );
 }

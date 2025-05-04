@@ -1,5 +1,4 @@
 import React from "react";
-
 useEffect(() => {
   setIsLoading(true);
 
@@ -10,7 +9,7 @@ useEffect(() => {
     return;
   }
 
-  axios.get(`http://localhost:5000/api/quizzes?userId=${userId}`)
+  axios.get(`https://backend-myquiz-1.onrender.com/api/quizzes?userId=${userId}`)
     .then(response => {
       setQuizzes(response.data); // Only get logged-in user's quizzes
       setIsLoading(false);

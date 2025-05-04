@@ -14,7 +14,7 @@ function Home() {
           link="/CreateQuiz"
         />
         <Card
-          title="Upcoming Quiz"
+          title="Start Quiz"
           description="Improve your IQ with this quiz!"
           buttonText="Start Now"
           link="/takequiz"
