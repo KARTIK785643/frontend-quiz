@@ -8,7 +8,7 @@ import Register from "./components/Registerpage/Register";
 import About from "./components/pages/About";
 import Createquiz from "./components/Createquizpage/Createquiz";
 import Takequiz from "./components/takequizpage/Takequiz";
-import Ranking from "./components/ranking/Ranking";
+import Ranking from "./components/Ranking/Ranking";
 import Profile from "./components/profilepage/Profile";
 
 function App() {
