@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/register", // Use your backend URL here
+        `${process.env.REACT_APP_BACKEND_URL}/register`, // Use your backend URL here
         user,
         { headers: { "Content-Type": "application/json" } }
       );

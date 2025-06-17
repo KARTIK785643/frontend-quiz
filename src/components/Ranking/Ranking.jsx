@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./ranking.css";
 
-const socket = io(`http://localhost:5000`, {
+const socket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
     transports: ["websocket"],
     withCredentials: true
 });
@@ -15,7 +15,7 @@ const RankingPage = () => {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/leaderboard`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/leaderboard`);
                 const data = await response.json();
                 console.log("Fetched Leaderboard Data:", data); // ✅ Debugging log
                 setUsers(data);

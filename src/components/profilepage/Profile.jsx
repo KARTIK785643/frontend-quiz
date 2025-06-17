@@ -18,7 +18,7 @@ const Profile = () => {
           throw new Error("No authentication token found. Please log in again.");
         }
 
-        const response = await fetch("http://localhost:5000/profile", {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
