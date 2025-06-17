@@ -25,7 +25,7 @@ useEffect(() => {
   }
   
   // Fetch quizzes with authentication
-  axios.get(`https://backend-myquiz-1.onrender.com/api/quizzes`, {
+  axios.get(`http://localhost:5000/api/quizzes`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -54,7 +54,7 @@ const handleQuizSubmit = async (quizData) => {
 
     console.log("Using Token:", token);  // Debugging line
 
-    const response = await axios.post(`https://backend-myquiz-1.onrender.com/api/quizzes`, quizData, {
+    const response = await axios.post(`http://localhost:5000/api/quizzes`, quizData, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -81,7 +81,7 @@ const handleQuizSubmit = async (quizData) => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
       try {
         setIsLoading(true);
-        await axios.delete(`https://backend-myquiz-1.onrender.com/api/quizzes/${quizId}`);
+        await axios.delete(`http://localhost:5000/api/quizzes/${quizId}`);
         
         // Remove from state
         setQuizzes(quizzes.filter(quiz => quiz._id !== quizId));

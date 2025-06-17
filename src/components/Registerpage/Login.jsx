@@ -24,7 +24,7 @@ const Login = ({ setIsLoggedIn }) => {  // Accept setIsLoggedIn prop
     }
 
     try {
-      const response = await axios.post("https://backend-myquiz-1.onrender.com/login", user, {
+      const response = await axios.post("http://localhost:5000/login", user, {
 
         headers: { "Content-Type": "application/json" },
       });

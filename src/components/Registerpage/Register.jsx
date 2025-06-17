@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://backend-myquiz-1.onrender.com/register", // Use your backend URL here
+        "http://localhost:5000/register", // Use your backend URL here
         user,
         { headers: { "Content-Type": "application/json" } }
       );
