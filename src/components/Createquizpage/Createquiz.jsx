@@ -25,7 +25,7 @@ useEffect(() => {
   }
   
   // Fetch quizzes with authentication
-  axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/quizzes`, {
+axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -54,7 +54,7 @@ const handleQuizSubmit = async (quizData) => {
 
     console.log("Using Token:", token);  // Debugging line
 
-    const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/quizzes`, quizData, {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes`, quizData, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -81,7 +81,7 @@ const handleQuizSubmit = async (quizData) => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
       try {
         setIsLoading(true);
-        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/quizzes/${quizId}`);
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes/${quizId}`);
         
         // Remove from state
         setQuizzes(quizzes.filter(quiz => quiz._id !== quizId));

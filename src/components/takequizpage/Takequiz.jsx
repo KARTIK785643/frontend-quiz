@@ -28,7 +28,7 @@ const TakeQuiz = () => {
       }
 
       console.log("Fetching quiz with ID:", id);
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/quizzes/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/quizzes/${id}`);
       console.log("Raw Quiz Data Received:", JSON.stringify(response.data, null, 2));
 
       if (!response.data || !response.data.questions || response.data.questions.length === 0) {

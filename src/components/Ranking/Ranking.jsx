@@ -15,7 +15,7 @@ const RankingPage = () => {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/leaderboard`);
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/leaderboard`);
                 const data = await response.json();
                 console.log("Fetched Leaderboard Data:", data); // ✅ Debugging log
                 setUsers(data);
