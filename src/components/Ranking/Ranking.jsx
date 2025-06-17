@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import "./ranking.css";
 
-const socket = io(`${process.env.REACT_APP_BACKEND_URL}`, {
+const socket = io(`${import.meta.env.VITE_BACKEND_URL}`, {
     transports: ["websocket"],
     withCredentials: true
 });
