@@ -24,7 +24,7 @@ const Login = ({ setIsLoggedIn }) => {  // Accept setIsLoggedIn prop
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/login`, user, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, user, {
 
         headers: { "Content-Type": "application/json" },
       });
